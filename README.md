@@ -1,16 +1,68 @@
-# React + Vite
+# 🎂 HBD Rohmah — Birthday & Support Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Sebuah web interaktif yang dibuat dengan penuh ketulusan untuk merayakan ulang tahun ke-22 Rohmah, sekaligus sebagai ruang dukungan emosional dan penyemangat hidup.
 
-Currently, two official plugins are available:
+🌐 **Live:** [hbdrohmah22.vercel.app](https://hbdrohmah22.vercel.app)
+📦 **Repo:** [github.com/Faisalabdulmajid/rohmah-birthday-22](https://github.com/Faisalabdulmajid/rohmah-birthday-22)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Fitur
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Slide | Fitur | Deskripsi |
+|-------|-------|-----------|
+| 1 | 📩 **Surat** | Pesan ulang tahun dan pengingat bahwa dia berharga |
+| 2 | 💌 **Amplop Penyemangat** | Kutipan acak dari 25+ pesan penyemangat, buka kapan saja saat merasa lelah |
+| 3 | 🎂 **Tiup Lilin** | Animasi kue ulang tahun interaktif dengan efek kembang api confetti |
+| 4 | 🖼️ **Galeri Foto** | Auto-scroll marquee foto polaroid yang berjalan terus tanpa henti |
+| 5 | 🌬️ **Tarik Napas** | Latihan pernapasan mindfulness dengan animasi lingkaran (4 detik tarik, 6 detik hembuskan) |
+| 6 | 🍃 **Buang Beban** | Tulis keluh kesah, tekan "Lepaskan" — teks akan menghilang dengan animasi cathartic |
+| 7 | 🌸 **Pesan Akhir** | Pesan penutup tentang self-worth dan doa dari jauh |
 
-## Expanding the Oxlint configuration
+### Fitur Tambahan
+- 🎵 **Musik Latar** — "Melukis Senja" yang bisa diputar/dijeda kapan saja
+- 🔢 **Penghitung Hari** — Menampilkan jumlah hari sejak 22 September 2004 secara dinamis
+- ✨ **Animasi** — Glassmorphism, floating particles, flame lilin, dan transisi halaman yang halus
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** React 19 + Vite
+- **Styling:** Tailwind CSS v4
+- **Animasi:** Framer Motion
+- **Confetti:** canvas-confetti
+- **Icons:** Lucide React
+- **Font:** Playfair Display, Plus Jakarta Sans, Caveat (Google Fonts)
+- **Hosting:** Vercel
+
+---
+
+## 🚀 Menjalankan Secara Lokal
+
+```bash
+# Install dependencies
+npm install
+
+# Jalankan dev server
+npm run dev
+```
+
+Buka `http://localhost:5173` di browser.
+
+---
+
+## 📁 Struktur Proyek
+
+```
+src/
+├── App.jsx          # Semua komponen utama (7 slide + Cover)
+├── index.css        # Global styles, glass, gradient utilities
+└── assets/
+    ├── img/         # Foto-foto (rohmah1.jpg, rohmah2.jpeg, rohmah3.jpg, bg.png)
+    └── music/       # melukis-senja.mp3
+```
+
+---
+
+*Dibuat dengan ❤️ — "Keep going, Rohmah. The best is yet to come." 🌸*
