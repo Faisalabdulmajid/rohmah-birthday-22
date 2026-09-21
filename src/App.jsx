@@ -89,7 +89,7 @@ const Cover = ({ onOpen }) => (
         transition={{ delay: 0.6, duration: 0.6 }}
         className="glass rounded-full px-5 py-2 shadow-card"
       >
-        <p className="text-muted text-xs tracking-[0.2em] uppercase font-medium">22 September 2004 — 2026</p>
+        <p className="text-muted text-xs tracking-[0.2em] uppercase font-medium">22 September 2004 - 2026</p>
       </motion.div>
 
       {/* Heading utama */}
@@ -173,17 +173,17 @@ const Letter = () => (
       </h2>
       <div className="space-y-4 text-dark/75 leading-relaxed text-sm sm:text-base md:text-lg font-light">
         <p>
-          Hai Rohmah, selamat ulang tahun ya! 22 tahun bukan angka yang kecil — itu adalah bukti nyata
+          Hai Rohmah, selamat ulang tahun ya! 22 tahun bukan angka yang kecil - itu adalah bukti nyata
           bahwa kamu sudah melewati begitu banyak hal, tumbuh, belajar, dan terus melangkah meski tidak selalu mudah.
         </p>
         <p>
-          Kamu berharga. Bukan karena pencapaianmu, bukan karena kamu berguna bagi orang lain —
+          Kamu berharga. Bukan karena pencapaianmu, bukan karena kamu berguna bagi orang lain -
           tapi karena kamu ada, dan kehadiranmu di dunia ini sudah cukup jadi alasan untuk bersyukur.
           Kamu layak untuk bahagia, layak untuk dicintai, dan layak untuk hidup dengan penuh.
         </p>
         <p>
           Semoga di usia 22 ini, kamu makin berani bermimpi, makin percaya pada dirimu sendiri, dan terus melangkah{' '}
-          <span className="font-medium text-dark/90">— satu hari dalam satu waktu.</span> 🌟
+          <span className="font-medium text-dark/90">- satu hari dalam satu waktu.</span> 🌟
         </p>
       </div>
 
@@ -278,11 +278,10 @@ const Cake = () => {
           disabled={blown}
           whileHover={!blown ? { scale: 1.05, y: -2 } : {}}
           whileTap={!blown ? { scale: 0.95 } : {}}
-          className={`px-8 py-3.5 rounded-2xl font-semibold text-sm md:text-base transition-all duration-500 ${
-            blown
+          className={`px-8 py-3.5 rounded-2xl font-semibold text-sm md:text-base transition-all duration-500 ${blown
               ? 'bg-peach/40 text-dark/40 cursor-default'
               : 'text-white shadow-glow'
-          }`}
+            }`}
           style={!blown ? { background: 'linear-gradient(135deg, #d4845a, #e8a87c)' } : {}}
         >
           {blown ? 'Make a wish ✨' : '🎂 Tiup lilinnya!'}
@@ -317,8 +316,8 @@ const Gallery = () => {
       </div>
 
       {/* Marquee Container */}
-      <div 
-        className="w-full overflow-hidden pb-8 relative" 
+      <div
+        className="w-full overflow-hidden pb-8 relative"
         style={{ WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)', maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}
       >
         <motion.div
@@ -401,7 +400,7 @@ const QuotesJar = () => {
         <p className="text-muted text-sm mt-1">Buka saat kamu merasa lelah</p>
       </div>
 
-      <motion.div 
+      <motion.div
         onClick={handleOpen}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -433,9 +432,9 @@ const QuotesJar = () => {
       </motion.div>
 
       {isOpened && (
-        <motion.p 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           className="text-muted text-xs cursor-pointer hover:text-peach transition-colors"
           onClick={(e) => { e.stopPropagation(); handleOpen(); }}
         >
@@ -449,16 +448,16 @@ const QuotesJar = () => {
 /* ─── Breathing Exercise ────────────────────────────────── */
 const BreathingExercise = () => {
   const [phase, setPhase] = useState('Tarik napas...');
-  
+
   useEffect(() => {
     const cycleDuration = 10000;
-    
+
     let isMounted = true;
-    
+
     const breatheCycle = () => {
       if (!isMounted) return;
       setPhase('Tarik napas...');
-      
+
       setTimeout(() => {
         if (!isMounted) return;
         setPhase('Hembuskan...');
@@ -467,7 +466,7 @@ const BreathingExercise = () => {
 
     breatheCycle();
     const interval = setInterval(breatheCycle, cycleDuration);
-    
+
     return () => {
       isMounted = false;
       clearInterval(interval);
@@ -536,9 +535,9 @@ const ReleaseBurden = () => {
   const handleRelease = (e) => {
     e.stopPropagation();
     if (!text.trim()) return;
-    
+
     setIsReleased(true);
-    
+
     const duration = 2000;
     const end = Date.now() + duration;
     const colors = ['#ffffff', '#fdf8f0', '#d4845a', '#f5c9a8'];
@@ -558,7 +557,7 @@ const ReleaseBurden = () => {
       className="w-full max-w-lg mx-auto flex flex-col items-center justify-center px-4"
     >
       <div className="glass rounded-3xl p-8 md:p-12 shadow-card w-full relative overflow-hidden flex flex-col items-center">
-        
+
         <AnimatePresence mode="wait">
           {!isReleased ? (
             <motion.div
@@ -586,11 +585,10 @@ const ReleaseBurden = () => {
                 disabled={!text.trim()}
                 whileHover={text.trim() ? { scale: 1.05 } : {}}
                 whileTap={text.trim() ? { scale: 0.95 } : {}}
-                className={`w-full py-3.5 rounded-2xl font-semibold transition-all duration-500 ${
-                  text.trim()
+                className={`w-full py-3.5 rounded-2xl font-semibold transition-all duration-500 ${text.trim()
                     ? 'text-white shadow-glow'
                     : 'bg-white/30 text-dark/30 cursor-not-allowed'
-                }`}
+                  }`}
                 style={text.trim() ? { background: 'linear-gradient(135deg, #d4845a, #e8a87c)' } : {}}
               >
                 Lepaskan
@@ -651,16 +649,16 @@ const FinalMessage = () => (
 
       <div className="space-y-4 text-dark/70 leading-relaxed text-sm md:text-base font-light text-center">
         <p>
-          Kamu berharga — bukan karena kamu sempurna, bukan karena kamu selalu kuat,
+          Kamu berharga - bukan karena kamu sempurna, bukan karena kamu selalu kuat,
           tapi karena kamu ada. Kehadiranmu di dunia ini punya makna, dan itu tidak bisa digantikan oleh siapapun.
         </p>
         <p>
-          Kamu pantas untuk hidup dengan baik. Pantas untuk bahagia, untuk didengar, untuk dirawat —
+          Kamu pantas untuk hidup dengan baik. Pantas untuk bahagia, untuk didengar, untuk dirawat -
           termasuk oleh dirimu sendiri. Jangan pernah merasa sebaliknya.
         </p>
         <p>
           Di usia 22 ini, semoga kamu makin percaya pada nilaimu sendiri, terus melangkah,
-          dan ingat — ada yang selalu mendoakanmu dari jauh dan percaya kamu akan baik-baik saja. 🌟
+          dan ingat - ada yang selalu mendoakanmu dari jauh dan percaya kamu akan baik-baik saja. 🌟
         </p>
       </div>
 
@@ -712,11 +710,10 @@ const SlideNav = ({ current, total, onPrev, onNext }) => (
       disabled={current === 0}
       whileHover={current !== 0 ? { scale: 1.1 } : {}}
       whileTap={current !== 0 ? { scale: 0.9 } : {}}
-      className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-        current === 0
+      className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${current === 0
           ? 'opacity-25 cursor-not-allowed'
           : 'glass shadow-card hover:shadow-card-hover'
-      }`}
+        }`}
     >
       <ChevronLeft className="w-4 h-4 text-dark/80" />
     </motion.button>
@@ -740,11 +737,10 @@ const SlideNav = ({ current, total, onPrev, onNext }) => (
       disabled={current === total - 1}
       whileHover={current !== total - 1 ? { scale: 1.1 } : {}}
       whileTap={current !== total - 1 ? { scale: 0.9 } : {}}
-      className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-        current === total - 1
+      className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${current === total - 1
           ? 'opacity-25 cursor-not-allowed'
           : 'shadow-glow'
-      }`}
+        }`}
       style={current !== total - 1 ? {
         background: 'linear-gradient(135deg, #d4845a, #e8a87c)',
       } : { background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)' }}
@@ -802,7 +798,7 @@ export default function App() {
       <BackgroundElements />
       <audio ref={audioRef} src={bgMusic} loop />
 
-      {/* Music button — always visible after open */}
+      {/* Music button - always visible after open */}
       {opened && <MusicButton isPlaying={isPlaying} onClick={toggleMusic} />}
 
       {/* Cover */}
