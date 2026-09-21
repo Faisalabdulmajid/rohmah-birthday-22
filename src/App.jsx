@@ -70,76 +70,88 @@ const BackgroundElements = () => (
 );
 
 /* ─── Cover ────────────────────────────────────────────── */
-const Cover = ({ onOpen }) => (
-  <motion.div
-    className="fixed inset-0 flex flex-col items-center justify-center z-50 px-6"
-    exit={{ opacity: 0, scale: 1.05 }}
-    transition={{ duration: 0.8, ease: 'easeInOut' }}
-  >
+const Cover = ({ onOpen }) => {
+  const calculateDays = () => {
+    const birthDate = new Date('2004-09-22T00:00:00');
+    const today = new Date();
+    const diffTime = Math.abs(today - birthDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return new Intl.NumberFormat('id-ID').format(diffDays);
+  };
+
+  return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3, duration: 1, ease: 'easeOut' }}
-      className="text-center flex flex-col items-center gap-8"
+      className="fixed inset-0 flex flex-col items-center justify-center z-50 px-6"
+      exit={{ opacity: 0, scale: 1.05 }}
+      transition={{ duration: 0.8, ease: 'easeInOut' }}
     >
-      {/* Badge tanggal */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6, duration: 0.6 }}
-        className="glass rounded-full px-5 py-2 shadow-card"
-      >
-        <p className="text-muted text-xs tracking-[0.2em] uppercase font-medium">22 September 2004 - 2026</p>
-      </motion.div>
-
-      {/* Heading utama */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-        className="space-y-1"
+        transition={{ delay: 0.3, duration: 1, ease: 'easeOut' }}
+        className="text-center flex flex-col items-center gap-8"
       >
-        <p className="text-muted text-sm md:text-base tracking-wide font-light">Selamat Ulang Tahun</p>
-        <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl font-bold text-dark leading-tight">
-          Rohmah
-        </h1>
-        <p className="text-gradient font-serif italic text-2xl md:text-3xl">22 tahun 🎂</p>
-      </motion.div>
+        {/* Badge penghitung hari */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+          className="rounded-3xl px-7 py-5 shadow-glow flex flex-col items-center text-center w-auto inline-flex"
+          style={{ background: 'linear-gradient(135deg, #c97a52, #d4845a)' }}
+        >
+          <p className="font-serif text-5xl text-white font-bold tracking-tight mb-1">{calculateDays()}</p>
+          <p className="text-white/80 text-xs tracking-widest uppercase font-medium">hari sejak 22 September 2004</p>
+        </motion.div>
 
-      {/* Divider dekoratif */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ delay: 1.1, duration: 0.7 }}
-        className="flex items-center gap-3 w-48"
-      >
-        <div className="flex-1 h-px bg-gradient-to-r from-transparent to-peach" />
-        <span className="text-peach text-lg">✦</span>
-        <div className="flex-1 h-px bg-gradient-to-l from-transparent to-peach" />
-      </motion.div>
+        {/* Heading utama */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="space-y-1"
+        >
+          <p className="text-muted text-sm md:text-base tracking-wide font-light">Selamat Ulang Tahun</p>
+          <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl font-bold text-dark leading-tight">
+            Rohmah
+          </h1>
+          <p className="text-gradient font-serif italic text-2xl md:text-3xl">22 tahun 🎂</p>
+        </motion.div>
 
-      {/* Tombol buka */}
-      <motion.button
-        onClick={onOpen}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.3, duration: 0.6 }}
-        whileHover={{ scale: 1.04, y: -2 }}
-        whileTap={{ scale: 0.96 }}
-        className="shimmer relative group px-8 py-4 rounded-2xl font-medium text-sm md:text-base text-white shadow-glow transition-all duration-300"
-        style={{ background: 'linear-gradient(135deg, #d4845a 0%, #e8a87c 60%, #d4845a 100%)' }}
-      >
-        <span className="relative z-10 flex items-center gap-2">
-          <span>Ada sesuatu buat kamu</span>
-          <motion.span
-            animate={{ x: [0, 5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >→</motion.span>
-        </span>
-      </motion.button>
+        {/* Divider dekoratif */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 1.1, duration: 0.7 }}
+          className="flex items-center gap-3 w-48"
+        >
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-peach" />
+          <span className="text-peach text-lg">✦</span>
+          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-peach" />
+        </motion.div>
+
+        {/* Tombol buka */}
+        <motion.button
+          onClick={onOpen}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.3, duration: 0.6 }}
+          whileHover={{ scale: 1.04, y: -2 }}
+          whileTap={{ scale: 0.96 }}
+          className="shimmer relative group px-8 py-4 rounded-2xl font-medium text-sm md:text-base text-white shadow-glow transition-all duration-300"
+          style={{ background: 'linear-gradient(135deg, #d4845a 0%, #e8a87c 60%, #d4845a 100%)' }}
+        >
+          <span className="relative z-10 flex items-center gap-2">
+            <span>Ada sesuatu buat kamu</span>
+            <motion.span
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >→</motion.span>
+          </span>
+        </motion.button>
+      </motion.div>
     </motion.div>
-  </motion.div>
-);
+  );
+};
 
 /* ─── Letter ────────────────────────────────────────────── */
 const Letter = () => (
@@ -177,9 +189,8 @@ const Letter = () => (
           bahwa kamu sudah melewati begitu banyak hal, tumbuh, belajar, dan terus melangkah meski tidak selalu mudah.
         </p>
         <p>
-          Kamu berharga. Bukan karena pencapaianmu, bukan karena kamu berguna bagi orang lain -
-          tapi karena kamu ada, dan kehadiranmu di dunia ini sudah cukup jadi alasan untuk bersyukur.
-          Kamu layak untuk bahagia, layak untuk dicintai, dan layak untuk hidup dengan penuh.
+          Kamu berharga. Kehadiranmu di dunia ini saja sudah cukup jadi alasan untuk bersyukur.
+          Kamu layak untuk bahagia, layak untuk dicintai, dan layak untuk hidup dengan tenang dan penuh rasa damai.
         </p>
         <p>
           Semoga di usia 22 ini, kamu makin berani bermimpi, makin percaya pada dirimu sendiri, dan terus melangkah{' '}
@@ -279,8 +290,8 @@ const Cake = () => {
           whileHover={!blown ? { scale: 1.05, y: -2 } : {}}
           whileTap={!blown ? { scale: 0.95 } : {}}
           className={`px-8 py-3.5 rounded-2xl font-semibold text-sm md:text-base transition-all duration-500 ${blown
-              ? 'bg-peach/40 text-dark/40 cursor-default'
-              : 'text-white shadow-glow'
+            ? 'bg-peach/40 text-dark/40 cursor-default'
+            : 'text-white shadow-glow'
             }`}
           style={!blown ? { background: 'linear-gradient(135deg, #d4845a, #e8a87c)' } : {}}
         >
@@ -372,7 +383,11 @@ const QuotesJar = () => {
     "Jaga kesehatanmu ya, itu yang paling penting sekarang.",
     "Jangan lupa makan yang teratur, tubuhmu butuh energi untuk terus melangkah.",
     "Jaga dirimu baik-baik, karena kamu sangat berharga.",
-    "Istirahatlah yang cukup, dunia masih bisa menunggu besok."
+    "Istirahatlah yang cukup, dunia masih bisa menunggu besok.",
+    "Kehadiranmu di dunia ini saja sudah cukup jadi alasan untuk bersyukur.",
+    "Kamu layak untuk hidup dengan tenang dan penuh rasa damai.",
+    "Tidak perlu membuktikan apa-apa kepada siapapun - kamu sudah cukup.",
+    "Kamu layak untuk dicintai, termasuk oleh dirimu sendiri."
   ];
 
   const [currentQuote, setCurrentQuote] = useState("Ketuk amplop ini saat kamu butuh semangat...");
@@ -586,8 +601,8 @@ const ReleaseBurden = () => {
                 whileHover={text.trim() ? { scale: 1.05 } : {}}
                 whileTap={text.trim() ? { scale: 0.95 } : {}}
                 className={`w-full py-3.5 rounded-2xl font-semibold transition-all duration-500 ${text.trim()
-                    ? 'text-white shadow-glow'
-                    : 'bg-white/30 text-dark/30 cursor-not-allowed'
+                  ? 'text-white shadow-glow'
+                  : 'bg-white/30 text-dark/30 cursor-not-allowed'
                   }`}
                 style={text.trim() ? { background: 'linear-gradient(135deg, #d4845a, #e8a87c)' } : {}}
               >
@@ -649,12 +664,12 @@ const FinalMessage = () => (
 
       <div className="space-y-4 text-dark/70 leading-relaxed text-sm md:text-base font-light text-center">
         <p>
-          Kamu berharga - bukan karena kamu sempurna, bukan karena kamu selalu kuat,
-          tapi karena kamu ada. Kehadiranmu di dunia ini punya makna, dan itu tidak bisa digantikan oleh siapapun.
+          Kamu berharga. Kehadiranmu di dunia ini saja sudah cukup jadi alasan untuk bersyukur.
+          Tidak perlu membuktikan apa-apa kepada siapapun.
         </p>
         <p>
-          Kamu pantas untuk hidup dengan baik. Pantas untuk bahagia, untuk didengar, untuk dirawat -
-          termasuk oleh dirimu sendiri. Jangan pernah merasa sebaliknya.
+          Kamu layak untuk bahagia, layak untuk dicintai, dan layak untuk hidup dengan tenang dan penuh rasa damai.
+          Jangan pernah meragukan itu.
         </p>
         <p>
           Di usia 22 ini, semoga kamu makin percaya pada nilaimu sendiri, terus melangkah,
@@ -711,8 +726,8 @@ const SlideNav = ({ current, total, onPrev, onNext }) => (
       whileHover={current !== 0 ? { scale: 1.1 } : {}}
       whileTap={current !== 0 ? { scale: 0.9 } : {}}
       className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${current === 0
-          ? 'opacity-25 cursor-not-allowed'
-          : 'glass shadow-card hover:shadow-card-hover'
+        ? 'opacity-25 cursor-not-allowed'
+        : 'glass shadow-card hover:shadow-card-hover'
         }`}
     >
       <ChevronLeft className="w-4 h-4 text-dark/80" />
@@ -738,8 +753,8 @@ const SlideNav = ({ current, total, onPrev, onNext }) => (
       whileHover={current !== total - 1 ? { scale: 1.1 } : {}}
       whileTap={current !== total - 1 ? { scale: 0.9 } : {}}
       className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${current === total - 1
-          ? 'opacity-25 cursor-not-allowed'
-          : 'shadow-glow'
+        ? 'opacity-25 cursor-not-allowed'
+        : 'shadow-glow'
         }`}
       style={current !== total - 1 ? {
         background: 'linear-gradient(135deg, #d4845a, #e8a87c)',
