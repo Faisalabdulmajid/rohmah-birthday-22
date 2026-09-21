@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-warm text-dark font-sans antialiased;
+    background: radial-gradient(ellipse at top left, #fef3e8 0%, #fdf8f0 50%, #fdf0e4 100%);
+  }
+
+  h1, h2, h3 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Glass card */
+  .glass {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+  }
+
+  .glass-dark {
+    background: rgba(61, 53, 48, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(135deg, #d4845a 0%, #e8a87c 50%, #c4704a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Shimmer animation */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -75%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 3s infinite;
+  }
+  @keyframes shimmer {
+    0% { left: -75%; }
+    100% { left: 125%; }
+  }
+
+  /* Music note pulse */
+  @keyframes music-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+  .music-pulse {
+    animation: music-pulse 1s ease-in-out infinite;
+  }
+
+  /* Candle flame */
+  @keyframes flame {
+    0%, 100% { transform: scaleX(1) scaleY(1) rotate(-2deg); }
+    25% { transform: scaleX(0.9) scaleY(1.1) rotate(2deg); }
+    50% { transform: scaleX(1.1) scaleY(0.95) rotate(-1deg); }
+    75% { transform: scaleX(0.95) scaleY(1.05) rotate(3deg); }
+  }
+  .flame {
+    animation: flame 0.8s ease-in-out infinite;
+    transform-origin: center bottom;
+  }
+
+  /* Particle float up */
+  @keyframes rise {
+    0% { opacity: 0; transform: translateY(20px) scale(0.5); }
+    20% { opacity: 1; }
+    80% { opacity: 0.8; }
+    100% { opacity: 0; transform: translateY(-100px) scale(1.2); }
+  }
+}
