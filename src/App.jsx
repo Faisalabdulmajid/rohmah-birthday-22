@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Music, Pause, ChevronRight, ChevronLeft } from 'lucide-react';
@@ -300,39 +300,316 @@ const Gallery = () => {
     { id: 3, url: rohmah3, caption: 'Kamu keren 🌟', rotate: 'rotate-6 md:rotate-3' },
   ];
 
+  // Duplikasi foto agar bisa infinite scroll (marquee)
+  const marqueePhotos = [...photos, ...photos, ...photos, ...photos];
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 60 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -60 }}
       transition={{ duration: 0.55, ease: 'easeOut' }}
-      className="max-w-4xl mx-auto w-full flex flex-col items-center gap-6 px-2"
+      className="max-w-5xl mx-auto w-full flex flex-col items-center gap-8 px-2"
     >
       <div className="text-center">
-        <p className="text-muted text-xs tracking-[0.2em] uppercase mb-1">Kenangan</p>
-        <h3 className="font-serif text-2xl md:text-3xl text-dark font-semibold">Beberapa momen manis...</h3>
+        <p className="text-muted text-xs tracking-[0.2em] uppercase mb-1">Apresiasi</p>
+        <h3 className="font-serif text-2xl md:text-3xl text-dark font-semibold">Kamu yang luar biasa...</h3>
       </div>
 
-      {/* Polaroid row */}
-      <div className="flex flex-row items-end gap-4 md:gap-8 overflow-x-auto pb-4 w-full justify-start md:justify-center px-4 md:px-0 no-scrollbar">
-        {photos.map((photo, i) => (
-          <motion.div
-            key={photo.id}
-            initial={{ opacity: 0, y: 40, rotate: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.08, rotate: 0, y: -8, zIndex: 50 }}
-            transition={{ delay: i * 0.12, duration: 0.6, type: 'spring', stiffness: 120 }}
-            className={`bg-white shadow-card-hover rounded-sm flex-shrink-0 cursor-pointer relative ${photo.rotate} ${photo.zIndex || 'z-0'}`}
-            style={{ padding: '10px 10px 40px' }}
-          >
-            <div className="w-36 sm:w-44 md:w-52 aspect-square overflow-hidden bg-gray-100">
-              <img src={photo.url} alt="Memory" className="w-full h-full object-cover" />
-            </div>
-            <p className="text-center mt-3 font-script text-dark/70 text-sm md:text-base">{photo.caption}</p>
-            {/* Pin decoratif */}
-            <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-peach border-2 border-white shadow-sm" />
-          </motion.div>
-        ))}
+      {/* Marquee Container */}
+      <div 
+        className="w-full overflow-hidden pb-8 relative" 
+        style={{ WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)', maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}
+      >
+        <motion.div
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ ease: 'linear', duration: 25, repeat: Infinity }}
+          className="flex flex-row items-end gap-6 md:gap-10 w-max"
+        >
+          {marqueePhotos.map((photo, i) => (
+            <motion.div
+              key={`${photo.id}-${i}`}
+              whileHover={{ scale: 1.08, rotate: 0, y: -8, zIndex: 50 }}
+              className={`bg-white shadow-card-hover rounded-sm flex-shrink-0 cursor-pointer relative ${photo.rotate}`}
+              style={{ padding: '10px 10px 40px' }}
+            >
+              <div className="w-36 sm:w-44 md:w-52 aspect-square overflow-hidden bg-gray-100">
+                <img src={photo.url} alt="Memory" className="w-full h-full object-cover pointer-events-none" />
+              </div>
+              <p className="text-center mt-3 font-script text-dark/70 text-sm md:text-base pointer-events-none">{photo.caption}</p>
+              {/* Pin decoratif */}
+              <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-peach border-2 border-white shadow-sm pointer-events-none" />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
+/* ─── Quotes Jar ────────────────────────────────────────── */
+const QuotesJar = () => {
+  const quotes = [
+    "Kamu lebih kuat dari yang kamu kira.",
+    "Tidak apa-apa untuk merasa lelah, istirahatlah sebentar.",
+    "Setiap langkah kecil yang kamu ambil itu berharga.",
+    "Jangan terlalu keras pada dirimu sendiri.",
+    "Kamu sudah melakukan yang terbaik hari ini.",
+    "Tarik napas dalam-dalam, kamu pasti bisa melewati ini.",
+    "Menangis bukan berarti lemah, itu tanda kamu manusia.",
+    "Percayalah pada prosesmu sendiri.",
+    "Kamu berhak mendapatkan hal-hal baik di dunia ini.",
+    "Jangan lupa berterima kasih pada dirimu sendiri karena sudah bertahan.",
+    "Hari yang buruk tidak berarti hidup yang buruk.",
+    "Pelan-pelan saja, tidak perlu terburu-buru.",
+    "Kamu cukup, dengan segala kelebihan dan kekuranganmu.",
+    "Badai pasti berlalu, percayalah.",
+    "Fokus pada apa yang bisa kamu kendalikan.",
+    "Jangan lupa tersenyum hari ini.",
+    "Kamu berhak bahagia.",
+    "Setiap hari adalah kesempatan baru.",
+    "Jangan bandingkan dirimu dengan orang lain, kamu punya waktumu sendiri.",
+    "Semua akan baik-baik saja pada akhirnya.",
+    "Jaga kesehatanmu ya, itu yang paling penting sekarang.",
+    "Jangan lupa makan yang teratur, tubuhmu butuh energi untuk terus melangkah.",
+    "Jaga dirimu baik-baik, karena kamu sangat berharga.",
+    "Istirahatlah yang cukup, dunia masih bisa menunggu besok."
+  ];
+
+  const [currentQuote, setCurrentQuote] = useState("Ketuk amplop ini saat kamu butuh semangat...");
+  const [isOpened, setIsOpened] = useState(false);
+
+  const handleOpen = (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    setCurrentQuote(quotes[randomIndex]);
+    setIsOpened(true);
+    // confetti tipis
+    confetti({ particleCount: 15, spread: 40, origin: { y: 0.7 }, colors: ['#f5c9a8', '#f2b4a0', '#ffffff'], zIndex: 100 });
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.5 }}
+      className="w-full max-w-md mx-auto flex flex-col items-center justify-center gap-6 px-4"
+    >
+      <div className="text-center mb-2">
+        <h3 className="font-serif text-2xl md:text-3xl text-dark font-semibold">Amplop Penyemangat</h3>
+        <p className="text-muted text-sm mt-1">Buka saat kamu merasa lelah</p>
+      </div>
+
+      <motion.div 
+        onClick={handleOpen}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="glass rounded-3xl p-8 w-full shadow-card flex flex-col items-center justify-center cursor-pointer relative overflow-hidden min-h-[200px]"
+      >
+        <AnimatePresence mode="wait">
+          {!isOpened ? (
+            <motion.div
+              key="closed"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="text-6xl drop-shadow-sm"
+            >
+              💌
+            </motion.div>
+          ) : (
+            <motion.div
+              key="opened"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex flex-col items-center text-center gap-4"
+            >
+              <div className="text-3xl mb-2">✨</div>
+              <p className="font-serif text-lg md:text-xl text-dark/80 italic">"{currentQuote}"</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {isOpened && (
+        <motion.p 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          className="text-muted text-xs cursor-pointer hover:text-peach transition-colors"
+          onClick={(e) => { e.stopPropagation(); handleOpen(); }}
+        >
+          Ambil kutipan lain ↺
+        </motion.p>
+      )}
+    </motion.div>
+  );
+};
+
+/* ─── Breathing Exercise ────────────────────────────────── */
+const BreathingExercise = () => {
+  const [phase, setPhase] = useState('Tarik napas...');
+  
+  useEffect(() => {
+    const cycleDuration = 10000;
+    
+    let isMounted = true;
+    
+    const breatheCycle = () => {
+      if (!isMounted) return;
+      setPhase('Tarik napas...');
+      
+      setTimeout(() => {
+        if (!isMounted) return;
+        setPhase('Hembuskan...');
+      }, 4000);
+    };
+
+    breatheCycle();
+    const interval = setInterval(breatheCycle, cycleDuration);
+    
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8 }}
+      className="w-full flex flex-col items-center justify-center gap-12 px-4"
+    >
+      <div className="text-center">
+        <h3 className="font-serif text-2xl md:text-3xl text-dark font-semibold">Berhenti sejenak</h3>
+        <p className="text-muted text-sm mt-2 max-w-xs mx-auto">Ikuti ritme lingkaran ini untuk menenangkan pikiranmu.</p>
+      </div>
+
+      <div className="relative w-64 h-64 flex items-center justify-center">
+        <motion.div
+          animate={{
+            scale: phase === 'Tarik napas...' ? 1.5 : 1,
+            opacity: phase === 'Tarik napas...' ? 0.6 : 0.2,
+          }}
+          transition={{
+            duration: phase === 'Tarik napas...' ? 4 : 6,
+            ease: "easeInOut"
+          }}
+          className="absolute inset-0 rounded-full"
+          style={{ background: 'radial-gradient(circle, #f5c9a8, transparent 70%)' }}
+        />
+        <motion.div
+          animate={{
+            scale: phase === 'Tarik napas...' ? 1.2 : 1,
+          }}
+          transition={{
+            duration: phase === 'Tarik napas...' ? 4 : 6,
+            ease: "easeInOut"
+          }}
+          className="glass w-32 h-32 rounded-full flex items-center justify-center shadow-glow z-10"
+        >
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={phase}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.5 }}
+              className="font-serif text-dark font-medium"
+            >
+              {phase}
+            </motion.p>
+          </AnimatePresence>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
+/* ─── Release Burden ────────────────────────────────────── */
+const ReleaseBurden = () => {
+  const [text, setText] = useState('');
+  const [isReleased, setIsReleased] = useState(false);
+
+  const handleRelease = (e) => {
+    e.stopPropagation();
+    if (!text.trim()) return;
+    
+    setIsReleased(true);
+    
+    const duration = 2000;
+    const end = Date.now() + duration;
+    const colors = ['#ffffff', '#fdf8f0', '#d4845a', '#f5c9a8'];
+
+    (function frame() {
+      confetti({ particleCount: 5, angle: 90, spread: 80, origin: { y: 0.6 }, colors, startVelocity: 40, gravity: 0.3, zIndex: 100 });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    }());
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.5 }}
+      className="w-full max-w-lg mx-auto flex flex-col items-center justify-center px-4"
+    >
+      <div className="glass rounded-3xl p-8 md:p-12 shadow-card w-full relative overflow-hidden flex flex-col items-center">
+        
+        <AnimatePresence mode="wait">
+          {!isReleased ? (
+            <motion.div
+              key="input"
+              exit={{ opacity: 0, y: -50, scale: 0.9, filter: "blur(10px)" }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              className="w-full flex flex-col gap-6"
+            >
+              <div className="text-center">
+                <span className="text-3xl mb-2 block">🍃</span>
+                <h3 className="font-serif text-xl md:text-2xl text-dark font-semibold">Buang Bebanmu</h3>
+                <p className="text-muted text-sm mt-2">Tuliskan apa yang membuatmu sedih atau lelah hari ini. Lalu lepaskan.</p>
+              </div>
+
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Aku merasa..."
+                className="w-full bg-white/40 border border-white/60 focus:outline-none focus:border-peach/80 rounded-2xl p-4 min-h-[120px] text-dark/80 resize-none placeholder:text-muted/60"
+                onClick={(e) => e.stopPropagation()}
+              />
+
+              <motion.button
+                onClick={handleRelease}
+                disabled={!text.trim()}
+                whileHover={text.trim() ? { scale: 1.05 } : {}}
+                whileTap={text.trim() ? { scale: 0.95 } : {}}
+                className={`w-full py-3.5 rounded-2xl font-semibold transition-all duration-500 ${
+                  text.trim()
+                    ? 'text-white shadow-glow'
+                    : 'bg-white/30 text-dark/30 cursor-not-allowed'
+                }`}
+                style={text.trim() ? { background: 'linear-gradient(135deg, #d4845a, #e8a87c)' } : {}}
+              >
+                Lepaskan
+              </motion.button>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="released"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1, duration: 1 }}
+              className="text-center py-8"
+            >
+              <div className="text-4xl mb-4">🤍</div>
+              <p className="font-serif text-xl md:text-2xl text-dark font-semibold mb-2">Sudah dilepaskan.</p>
+              <p className="text-dark/70 text-sm md:text-base">Semua akan baik-baik saja. Kamu aman.</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
@@ -426,7 +703,7 @@ const MusicButton = ({ isPlaying, onClick }) => (
 );
 
 /* ─── Slide Indicator ───────────────────────────────────── */
-const sliderLabels = ['Surat', 'Wish', 'Foto', 'Pesan'];
+const sliderLabels = ['Surat', 'Toples', 'Wish', 'Foto', 'Napas', 'Beban', 'Pesan'];
 
 const SlideNav = ({ current, total, onPrev, onNext }) => (
   <div className="absolute bottom-8 md:bottom-10 left-0 right-0 flex justify-center items-center gap-5 z-30">
@@ -486,8 +763,11 @@ export default function App() {
 
   const slides = [
     <Letter key="letter" />,
+    <QuotesJar key="quotes" />,
     <Cake key="cake" />,
     <Gallery key="gallery" />,
+    <BreathingExercise key="breathe" />,
+    <ReleaseBurden key="release" />,
     <FinalMessage key="final" />,
   ];
 
